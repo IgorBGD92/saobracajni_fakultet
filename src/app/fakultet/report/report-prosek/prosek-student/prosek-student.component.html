@@ -1,0 +1,12 @@
+<h1>Prosecna ocena za studenta sa id:  </h1>
+   
+<div class="ui-inputgroup">
+    <span class="ui-inputgroup-addon"><i class="fa fa-credit-card"></i></span>  
+    <span class="ui-inputgroup-addon"><i class="fa fa-cc-visa"></i></span> 
+    <input id="float-input" type="text" pInputText [(ngModel)]="id"  placeholder="Unesi id studenta">  <button (click)="search()" >Nadji</button>     
+</div> 
+
+<div>
+    <p>Prosecna ocena : {{response1}}</p>
+</div>
+

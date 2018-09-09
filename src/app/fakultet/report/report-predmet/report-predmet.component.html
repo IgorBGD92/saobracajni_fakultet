@@ -1,0 +1,26 @@
+<h1>Studenti koji su polozili {{predmet}}: </h1>
+   
+<div class="ui-inputgroup">
+    <span class="ui-inputgroup-addon"><i class="fa fa-credit-card"></i></span>  
+    <span class="ui-inputgroup-addon"><i class="fa fa-cc-visa"></i></span> 
+    <input id="float-input" type="text" pInputText [(ngModel)]="predmet"  placeholder="Unesi naziv predmeta">  <button (click)="search()" >Nadji</button>     
+</div> 
+<!-- <div *ngIf="response1"> --> 
+<div *ngFor="let response of response1">
+<h3>{{response.name}}  {{response.surname}}</h3>
+<div>
+<p>Id : {{response.id}}</p>
+<p>Code : {{response.code}}</p>
+<p>Description : {{response.description}}</p>
+<p>Creation date: {{response.creationDate}}</p>
+<p>Last updated by: {{response.lastUpdatedBy}}</p>
+<p>Last update date: {{response.lastUpdateDate}}</p>
+<p>Created by: {{response.createdBy}}</p>
+<p>Row status: {{response.rowStatus}}</p>
+<div>
+        
+        <button (click)="obrisi(response.id)">   Obrisi studenta  </button>
+</div>
+</div> 
+</div>
+<!-- </div> -->

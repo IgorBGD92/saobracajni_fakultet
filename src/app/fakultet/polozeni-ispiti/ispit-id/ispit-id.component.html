@@ -1,0 +1,22 @@
+<h1>Pretraga polozenih ispita</h1>
+<div class="ui-inputgroup">
+    <span class="ui-inputgroup-addon"><i class="fa fa-credit-card"></i></span>  
+    <span class="ui-inputgroup-addon"><i class="fa fa-cc-visa"></i></span> 
+    <label for="float-input">Pretraga polozenih ispita: </label>  
+    <input id="float-input" type="text" pInputText [(ngModel)]="id"  placeholder="Unesi id studenta">  <button (click)="search()" >Nadji</button>     
+  </div> 
+  
+  <div *ngIf="response">
+      <div *ngFor="let response of response">
+          <h3> {{response.predmet.naziv}}</h3>
+          <div>
+            <p>Id : {{response.polozeniIspitId}}</p>
+            <p>Student : {{response.student.name}} {{response.student.surname}}</p>
+            <p>Ocena: {{response.ocena}}</p>
+            <p>Datum polaganja: {{response.datumPolaganja}}</p>
+            <div>
+                
+                <button (click)="obrisi(response.student.id,response.polozeniIspitId)">   Obrisi ispit  </button>
+        </div>
+          </div>
+          </div>

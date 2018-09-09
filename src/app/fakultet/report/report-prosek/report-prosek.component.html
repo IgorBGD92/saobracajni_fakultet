@@ -1,0 +1,13 @@
+<h1>Prosecna ocena za predmet: {{predmet}} </h1>
+   
+<div class="ui-inputgroup">
+    <span class="ui-inputgroup-addon"><i class="fa fa-credit-card"></i></span>  
+    <span class="ui-inputgroup-addon"><i class="fa fa-cc-visa"></i></span> 
+    <input id="float-input" type="text" pInputText [(ngModel)]="predmet"  placeholder="Unesi naziv predmeta">  <button (click)="search()" >Nadji</button>     
+</div> 
+
+<div>
+    <p>Prosecna ocena : {{response1}}</p>
+</div>
+<app-report-predmet-id></app-report-predmet-id>
+<app-prosek-student></app-prosek-student>

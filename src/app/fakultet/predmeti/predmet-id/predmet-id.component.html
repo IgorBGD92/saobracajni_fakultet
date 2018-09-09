@@ -1,0 +1,21 @@
+<h1>Pretraga predmeta: </h1>
+<div class="ui-inputgroup">
+    <span class="ui-inputgroup-addon"><i class="fa fa-credit-card"></i></span>  
+    <span class="ui-inputgroup-addon"><i class="fa fa-cc-visa"></i></span> 
+    <label for="float-input">Pretraga predmeta: </label>  
+    <input id="float-input" type="text" pInputText [(ngModel)]="id"  placeholder="Unesi id predmeta">  <button (click)="search()" >Nadji</button>     
+  </div> 
+  
+  <div *ngIf="response">
+  <h3>{{response.naziv}}</h3>
+  <div>
+  <p>Id : {{response.predmetId}}</p>
+  <p>Profesor : {{response.profesor}}</p>
+  <p>Semestar : {{response.semestar}}</p>
+  <p>Godina: {{response.godinaSlusanja}}</p>
+  <div>
+     
+      <button (click)="obrisi(response.predmetId)">   Obrisi predmet  </button>
+</div>
+  </div>
+  </div>

@@ -1,0 +1,39 @@
+<h1 class="fas fa-graduation-cap">Pretraga studenata
+</h1>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+    crossorigin="anonymous">
+
+
+<div class="ui-inputgroup">
+    <span class="ui-inputgroup-addon"><i class="fa fa-credit-card"></i></span>
+    <span class="ui-inputgroup-addon"><i class="fa fa-cc-visa"></i></span>
+    <input id="float-input" type="text" pInputText [(ngModel)]="id" placeholder="Unesi id studenta"> <button (click)="search()">Nadji</button>
+</div>
+
+<div *ngIf="response">
+    <h1>{{response.name}} {{response.surname}}</h1>
+    <div>
+        <p>Id : {{response.id}}</p>
+        <p>Code : {{response.code}}</p>
+        <p>Description : {{response.description}}</p>
+        <p>Creation date: {{response.creationDate}}</p>
+        <p>Last updated by: {{response.lastUpdatedBy}}</p>
+        <p>Last update date: {{response.lastUpdateDate}}</p>
+        <p>Created by: {{response.createdBy}}</p>
+        <p>Row status: {{response.rowStatus}}</p>
+        <div>
+
+            <p>
+                <p-confirmDialog></p-confirmDialog>
+
+
+                <button type="button" (click)="confirm2()" pButton icon="pi pi-times" label="Delete"></button>
+
+                <p-messages [value]="msgs"></p-messages>
+            </p>
+
+        </div>
+    </div>
+</div>
+
+

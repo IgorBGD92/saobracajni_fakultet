@@ -1,0 +1,24 @@
+div{
+    border: 5px;
+    border-style: double;
+    border-color: black;
+    
+    border-radius: 5px;
+    padding-block-end: 10px;
+}
+h2{
+    color: brown;
+    font-style: italic;
+}
+li{
+    
+        list-style-type: square;
+    
+}
+body{
+    background-color: azure;
+}
+h1{
+    color: darkred;
+    font-family: 'Times New Roman', Times, serif;
+}

@@ -1,0 +1,38 @@
+<h1>General report: </h1>
+   
+<p-accordion [multiple]="true" >
+    <div *ngFor="let response of response1">
+        <p-accordionTab header="{{response.ime}}">
+                <h4>Polozeni ispiti : </h4>
+                 
+            <span *ngFor="let ispit of response.ispiti">
+                    <ul>
+                <li> Predmet : {{ispit.predmet.naziv}}</li>
+                <li>Datum polaganja : {{ispit.datumPolaganja}}</li>
+                <li>Ocena : {{ispit.ocena}}</li>
+            </ul>
+________________________________________________________________________
+            </span>
+        
+        </p-accordionTab>
+    </div>
+</p-accordion>
+<!-- <div *ngFor="let response of response1">
+<h2>{{response.ime}}</h2>
+<h4>Polozeni ispiti : </h4>
+<span *ngFor="let ispit of response.ispiti">
+<div>
+<ul>
+<p>Predmet : {{ispit.predmet.naziv}}</p>
+<p>Datum polaganja : {{ispit.datumPolaganja}}</p>
+<p>Ocena : {{ispit.ocena}}</p>
+</ul>
+        
+</div>
+</span>
+</div> -->
+
+
+
+
+ 

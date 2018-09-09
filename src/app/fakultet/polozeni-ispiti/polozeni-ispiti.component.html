@@ -1,0 +1,139 @@
+
+<p-table #dt [columns]="cols" [value]="ispiti" selectionMode="single" [(selection)]="selectedPolozeniIspit" (onRowSelect)="onRowSelect($event)"
+    [paginator]="true" [rows]="15">
+    <ng-template pTemplate="caption">
+        Lista Predmeta
+
+        
+            <div style="text-align: left">        
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" pInputText size="50" placeholder="Pretraga" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+            </div>
+            <div style="text-align:right">
+                    <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Nadji"></button>
+                </div>
+            <div style="text-align:right">
+                <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
+            </div>
+        </ng-template> 
+    
+    
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+        </tr>
+        <!-- <tr>
+            <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                <input size="10" *ngSwitchCase="'polozeniIspitId'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                <input size="10" *ngSwitchCase="'student'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'col.filterMatchMode')">
+                <input size="10" *ngSwitchCase="'predmet'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+            </th>
+
+        </tr> -->
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+            <td *ngFor="let col of columns">
+                <span *ngIf="!col.subfield">{{rowData[col.field]}}</span>
+                <span *ngIf="col.subfield">{{rowData[col.field][col.subfield]}} <span *ngIf="col.subfield2">{{rowData[col.field][col.subfield2]}}</span></span>
+                
+            </td>
+            <td>
+                    <button  type="button" pButton (click)="selectCar($event,car,op3)" icon="pi pi-search" label="Edit"></button>
+                    <div class="divider"></div>
+                    <button type="button" pButton (click)="confirm()" icon="pi pi-search" label="Delete"></button>
+
+            </td>
+        </tr>
+    </ng-template>
+
+</p-table>
+
+<p-dialog header="Ispiti Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="600"
+    [closable]="true">
+    <div class="ui-g ui-fluid" *ngIf="ispit">
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="polozeniIspitId">ID</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText id="polozeniIspitId" [(ngModel)]="ispit.polozeniIspitId" [disabled]="true" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="student">Student</label>
+            </div>
+            <div class="ui-g-8">
+
+                <p-dropdown [options]="studenti" [(ngModel)]="selectedStudent" optionLabel="surname" [filter]="true" filterBy="label" scrollHeight="300px"
+                    placeholder="Izaberi studenta" autoWidth="true"></p-dropdown>
+                <!-- <div *ngIf ="selectedStudent">  -->
+                <!-- <input pInputText id="id" [(ngModel)]="selectedStudent.id" [disabled]="true" />
+                <input pInputText id="name" [(ngModel)]="selectedStudent.name" [disabled]="true"/>
+                <input pInputText id="surname" [(ngModel)]="selectedStudent.surname" [disabled]="true"/>
+                <input pInputText id="code" [(ngModel)]="selectedStudent.code"[disabled]="true" />
+                <input pInputText id="description" [(ngModel)]="selectedStudent.description" [disabled]="true"/>
+                <input pInputText id="createdBy" [(ngModel)]="selectedStudent.createdBy" [disabled]="true"/>
+                <input pInputText id="creationDate" [(ngModel)]="selectedStudent.creationDate" [disabled]="true"/>
+                <input pInputText id="lastUpdateDate" [(ngModel)]="selectedStudent.lastUpdateDate" [disabled]="true"/>
+                <input pInputText id="lastUpdatedBy" [(ngModel)]="selectedStudent.lastUpdatedBy" [disabled]="true"/>
+                <input pInputText id="rowStatus" [(ngModel)]="selectedStudent.rowStatus" [disabled]="true"/> -->
+                <!-- </div> -->
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="predmet">Predmet</label>
+            </div>
+            <div class="ui-g-8">
+
+                <p-dropdown [options]="predmeti" [(ngModel)]="selectedPredmet" optionLabel="naziv" [filter]="true" filterBy="label" required
+                    placeholder="Izaberi predmet"></p-dropdown>
+                <!-- <div *ngIf ="selectedPredmet"> -->
+                <!-- <input pInputText id="predmetId" [(ngModel)]="selectedPredmet.predmetId" [disabled]="true"/>
+                <input pInputText id="naziv" [(ngModel)]="selectedPredmet.naziv" [disabled]="true"/>
+                <input pInputText id="profesor" [(ngModel)]="selectedPredmet.profesor" [disabled]="true"/>
+                <input pInputText id="semestar" [(ngModel)]="selectedPredmet.semestar" [disabled]="true"/>
+                <input pInputText id="godinaSlusanja" [(ngModel)]="selectedPredmet.godinaSlusanja"[disabled]="true" /> -->
+                <!-- </div> -->
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="ocena">Ocena</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText id="ocena" [(ngModel)]="ispit.ocena" />
+            </div>
+        </div>
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="datumPolaganja">Datum polaganja</label>
+            </div>
+            <div class="ui-g-8">
+                <!-- <p-calendar [(ngModel)]="ispit.datumPolaganja" ></p-calendar> -->
+                <input pInputText id="datumPolaganja" [(ngModel)]="ispit.datumPolaganja" />
+            </div>
+        </div>
+
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+
+            <button type="button" pButton icon="fa fa-close" (click)="confirm()" pButton icon="pi pi-times" label="Delete"></button>
+
+            <p-messages [value]="msgs"></p-messages>
+            <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+
+<p-confirmDialog></p-confirmDialog>
+<router-outlet></router-outlet>
+
+

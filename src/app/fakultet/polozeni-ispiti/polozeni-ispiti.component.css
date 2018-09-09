@@ -1,0 +1,17 @@
+a{
+    
+    padding: 14px;
+    
+}
+h1{
+    color: blue;
+}
+li{
+    padding: 10px;
+}
+
+.divider{
+    width:8px;
+    height:auto;
+    display:inline-block;
+}
