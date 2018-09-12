@@ -1,0 +1,84 @@
+<div id="bla" class="row justify-content-left">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="student-heading">Create or edit a student</h2>
+            <div>
+
+                <div class="form-group" [hidden]="!student.id" >
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" [(ngModel)]="student.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name" [(ngModel)]="student.name"
+                        required />
+                    <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.name?.errors?.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_surname">Surname</label>
+                    <input type="text" class="form-control" name="surname" id="field_surname" [(ngModel)]="student.surname" required />
+                    <div [hidden]="!(editForm.controls.surname?.dirty && editForm.controls.surname?.invalid)">
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.surname?.errors?.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">   
+                    <label class="form-control-label" for="field_code">Code</label>
+                    <input type="text" class="form-control" name="code" id="field_code" [(ngModel)]="student.code"
+                        required />
+                    <div [hidden]="!(editForm.controls.code?.dirty && editForm.controls.code?.invalid)">
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.code?.errors?.required">
+
+                            This field is required.
+                        </small>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_description">Description</label>
+                        <input type="text" class="form-control" name="description" id="field_description" [(ngModel)]="student.description"
+                             />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_createdBy">Created by</label>
+                        <input type="text" class="form-control" name="createdBy" id="field_createdBy" [(ngModel)]="student.createdBy"
+                            />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_creationDate">Creation date</label>
+                        <input type="text" class="form-control" name="creationDate" id="field_creationDate" [(ngModel)]="student.creationDate"
+                             />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_lastUpdatedBy">Last updated by</label>
+                        <input type="text" class="form-control" name="lastUpdatedBy" id="field_lastUpdatedBy" [(ngModel)]="student.lastUpdatedBy"
+                             />
+                    </div>
+                    <div class="form-group"> 
+                        <label class="form-control-label" for="field_lastUpdateDate">Last update date</label>
+                        <input type="text" class="form-control" name="lastUpdateDate" id="field_lastUpdateDate" [(ngModel)]="student.lastUpdateDate"
+                             />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_rowStatus">Row status</label>
+                        <input type="text" class="form-control" name="rowStatus" id="field_rowStatus" [(ngModel)]="student.rowStatus"
+                            required />
+                    </div>
+            </div>
+            <div class="text-right">
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <!-- <fa-icon [icon]="'ban'"></fa-icon>&nbsp; -->
+                    <span>Cancel</span>
+                </button>
+                <button type="button" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary"  (click)="onSave($event)">
+                    <!-- <fa-icon [icon]="'save'"></fa-icon>&nbsp; -->
+                    <span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

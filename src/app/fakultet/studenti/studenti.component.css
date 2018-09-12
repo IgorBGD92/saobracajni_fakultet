@@ -22,3 +22,20 @@ li{
 .button{
     text-align: center;
 }
+
+#dugmeDodaj {
+    margin-right: 10px !important;
+    height: 30px;
+    align-self: center;
+}
+
+#page-heading {
+    margin-left: 5px !important;
+    width: 100% !important;
+}
+
+.buttons {
+    width: 200px;
+    display: inline-flex;
+}
+

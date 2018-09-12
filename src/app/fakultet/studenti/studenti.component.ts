@@ -1,9 +1,11 @@
 import { OnInit, Component } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Message, ConfirmationService } from "primeng/api";
+import { HttpClient, HttpResponse, HttpErrorResponse } from "@angular/common/http";
+import { Message, ConfirmationService, LazyLoadEvent } from "primeng/api";
 import { StudentService } from "./studentService";
 import { Student } from "./student.model";
 import { API_URL } from "../../app.component";
+import { Observable, Subject, ReplaySubject, from, of, range } from 'rxjs';
+import { map, filter, switchMap } from 'rxjs/operators';
 
 
 
@@ -15,11 +17,22 @@ import { API_URL } from "../../app.component";
 export class StudentiComponent implements OnInit {
     displayDialog: boolean;
 
-    showIspiti:boolean;
+    showIspiti: boolean;
 
     student: Student = new Student();
 
+    page:number=0;
+    size:number=5;
+    //  pages:number;
+
+     datasource: Student[];
+
+     totalRecords: number;
+
     selectedStudent: Student;
+
+    loading: boolean;
+    
     msgs: Message[] = [];
 
     newStudent: boolean;
@@ -27,15 +40,22 @@ export class StudentiComponent implements OnInit {
     students: Student[];
 
     cols: any[];
-   
+ 
+    id:number;
+
+    
+
 
     constructor(private studentService: StudentService, private http: HttpClient, private confirmationService: ConfirmationService) { }
-
+ 
     ngOnInit() {
-        this.studentService.getStudentsSmall().subscribe((students: Student[]) => {
-            this.students = students;
-        });
-
+        // this.http.get(API_URL + 'studenti').subscribe((students: Student[]) => {
+        //     this.students = students;
+        // });
+    //  this.getStudents();
+     
+     this.getStudents();
+    this.loading = true;
         this.cols = [
             { field: 'id', header: 'ID' },
             { field: 'name', header: 'Name' },
@@ -47,74 +67,64 @@ export class StudentiComponent implements OnInit {
             { field: 'lastUpdateDate', header: 'Last update date' },
             { field: 'createdBy', header: 'Created by' },
             { field: 'rowStatus', header: 'Row status' }
+          
+            
         ];
     }
-    showDialogToAdd() {
-        this.newStudent = true;
-        this.student = new Student();
-        this.displayDialog = true;
+   
+    // fetchData() {
+    //     this.http.get(API_URL + 'studenti').subscribe((students: Student[]) => {
+    //         this.students = students;
+    //     });
+    // }
+
+    previousState() {
+        window.history.back();
+      }
+
+    delete(id:number) {
+
+        if (window.confirm('Da li ste sigurni da zelite da obrisete ovog studenta?')) {
+            // this.student = event.newData;
+            this.studentService.delete( id).subscribe(); 
+            console.log("delete confirmed"+id)
+            this.previousState();
+            // event.confirm.resolve(event.newData);
+          } 
+
+       
     }
-
-    save() {
-        let students = [...this.students];
-        if (this.newStudent) {
-
-            this.http.post(API_URL + "studenti", this.student).subscribe(data => { this.fetchData() });
-            this.msgs = [{ severity: 'info', summary: 'Student upisan!', detail: ' ID studenta je ' + this.student.id }];
-
+    getStudents(){
+        this.studentService.getStudents(this.page,this.size).subscribe(
+            students=>{
+                this.datasource=students['content'];
+                this.totalRecords=students['totalElements'];
+                console.log(this.datasource)
+            })
         }
-        else{
-            this.http.put(API_URL + '/studenti/' + this.student.id, this.student).subscribe(data => { this.fetchData() });
+    
+                 
+    loadStudentsLazy(event: LazyLoadEvent) {
+        this.loading = true;
 
-        this.students = students;
-        this.student = null;
-        this.msgs = [{ severity: 'info', summary: 'Uspeh!', detail: ' Student izmenjen!'}];
-        // this.displayDialog = false;
-        }
-    }
-    fetchData() {
-        this.studentService.getStudentsSmall().subscribe((students: Student[]) => {
-            this.students = students;
-        });
-    }
+        //in a real application, make a remote request to load data using state metadata from event
+        this.size= event.rows;
+        this.page=event.first/event.rows ;
+        this.getStudents();
+        //event.sortField = Field name to sort with
+        //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
+        //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
 
-
-
-    confirm() {
-        this.confirmationService.confirm({
-            message: 'Do you want to delete this record?',
-            header: 'Delete Confirmation',
-            icon: 'pi pi-info-circle',
-            accept: () => {
-                this.http.delete(API_URL + 'studenti/' + this.selectedStudent.id).subscribe(data => { this.fetchData() });
-                this.msgs = [{ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' }];
-                this.displayDialog = false;
-                this.fetchData();
-
-            },
-            reject: () => {
-                this.msgs = [{ severity: 'info', summary: 'Rejected', detail: 'You have rejected' }];
-                this.displayDialog = false;
+        //imitate db connection over a network
+        setTimeout(() => {
+            if (this.datasource) {
+                this.students = this.datasource;
+                this.loading = false;
             }
-        });
-    }
-
-    onRowSelect(event) {
-        this.newStudent = false;
-        this.student = this.cloneStudent(event.data);
-        this.displayDialog = true;
-    }
-
-    cloneStudent(c: Student): Student {
-        let student = new Student();
-        for (let prop in c) {
-            student[prop] = c[prop];
-        }
-        return student;
-    }
-    show(){
-        this.showIspiti=true;
-        
-    }
-  
+        }, 1000);
+    }  
+   
 }
+
+
+

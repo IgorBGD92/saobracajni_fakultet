@@ -53,7 +53,7 @@ export class PolozeniIspitiComponent implements OnInit {
     this.ispitiService.getPolozeniIspitiSmall().subscribe((ispiti: PolozeniIspiti[]) => {
       this.ispiti = ispiti;
     })
-    this.studentService.getStudentsSmall().subscribe((students: Student[]) => {
+    this.http.get(API_URL + 'studenti').subscribe((students: Student[]) => { 
       this.studenti = students;
     })
     this.predmetService.getPredmetiSmall().subscribe((predmeti: Predmet[]) => {

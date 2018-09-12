@@ -1,0 +1,54 @@
+<div id="bla" class="row justify-content-left">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="ispit-heading">Dodaj/izmeni polozeni ispit</h2>
+            <div>
+
+                <div class="form-group" [hidden]="!ispit.polozeniIspitId">
+                    <label for="polozeniIspitId">ID</label>
+                    <input type="text" class="form-control" id="polozeniIspitId" name="polozeniIspitId" [(ngModel)]="ispit.polozeniIspitId"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="predmet">Predmet</label><br>
+                    <p-dropdown [style]="{'width':'100%'}" [options]="predmeti" [(ngModel)]="predmet" [ngModelOptions]="{standalone: true}"
+                        optionLabel="naziv" [filter]="true" filterBy="label" required placeholder="Izaberi predmet"></p-dropdown>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-control-label" for="field_ocena">Ocena</label>
+                <input type="text" class="form-control" name="ocena" id="field_ocena" [(ngModel)]="ispit.ocena"
+                    required />
+                <div [hidden]="!(editForm.controls.ocena?.dirty && editForm.controls.ocena?.invalid)">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.ocena?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_datumPolaganja">Datum polaganja</label>
+                    <input type="text" class="form-control" name="datumPolaganja" id="field_datumPolaganjae"
+                        [(ngModel)]="ispit.datumPolaganja" required />
+                    <div [hidden]="!(editForm.controls.datumPolaganja?.dirty && editForm.controls.datumPolaganja?.invalid)">
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.datumPolaganja?.errors?.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="text-right">
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <!-- <fa-icon [icon]="'ban'"></fa-icon>&nbsp; -->
+                    <span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary"
+                    (click)="onSave($event)">
+                    <!-- <fa-icon [icon]="'save'"></fa-icon>&nbsp; -->
+                    <span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

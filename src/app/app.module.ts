@@ -9,6 +9,8 @@ import {TableModule} from 'primeng/table';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {CalendarModule} from 'primeng/calendar';
 import {DataScrollerModule} from 'primeng/datascroller';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 
 import { AppComponent } from './app.component';
 import { FakultetComponent } from './fakultet/fakultet.component';
@@ -30,7 +32,6 @@ import { ReportPredmetIdComponent } from './fakultet/report/report-prosek/report
 import {ButtonModule} from 'primeng/button';
 import {ConfirmationService} from 'primeng/api';
 import {MessagesModule, DialogModule } from 'primeng/primeng';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DataTableModule } from 'primeng/primeng';
 import { StudentService } from './fakultet/studenti/studentService';
 import { PredmetService } from './fakultet/predmeti/predmetService';
@@ -38,6 +39,17 @@ import { PolozeniIspitiService } from './fakultet/polozeni-ispiti/polozeniIspiti
 import {DropdownModule} from 'primeng/dropdown';
 import {AccordionModule} from 'primeng/accordion';
 import {MatMenuModule} from '@angular/material/menu';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { Ng2CompleterModule } from "ng2-completer";
+import { StudentUpdateComponent } from './fakultet/studenti/student-update/student-update.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { StudentIspitiComponent } from './fakultet/studenti/student-ispiti/student-ispiti.component';
+import { StudentIspitDodajComponent } from './fakultet/studenti/student-ispit-dodaj/student-ispit-dodaj.component';
+
+
+
+
 
 
 @NgModule({
@@ -59,6 +71,11 @@ import {MatMenuModule} from '@angular/material/menu';
     ReportProsekComponent,
     ProsekStudentComponent,
     ReportPredmetIdComponent,
+    StudentUpdateComponent,
+    StudentIspitiComponent,
+    StudentIspitDodajComponent,
+    
+    
     
   
   ],
@@ -77,7 +94,11 @@ import {MatMenuModule} from '@angular/material/menu';
     CalendarModule,
     DropdownModule,
     DataScrollerModule,
-    AccordionModule
+    AccordionModule,
+    Ng2SmartTableModule,
+    Ng2CompleterModule,
+    AngularFontAwesomeModule,
+    NgbModule
 
     
     
